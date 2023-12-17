@@ -1,19 +1,32 @@
 
 
-const Card = () => {
+const Card = ({title, image_url, description, subtitle, extras, secondaryAction, primaryAction, primaryActionMethod, secondaryActionMethod}) => {
     return (
         <>
             <div className="card w-96 bg-base-100 shadow-xl">
-  <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
+  <figure><img src={image_url} alt="Shoes" /></figure>
   <div className="card-body">
     <h2 className="card-title">
-      Shoes!
-      <div className="badge badge-secondary">NEW</div>
+      {title}
+      <br />
+      
     </h2>
-    <p>If a dog chews shoes whose shoes does he choose?</p>
+    <div className="text-start">
+      <span className="font-bold">{extras}</span>
+      <h2 className="text-blue-600 font-semibold">{subtitle}</h2>
+      <p>
+        {description}
+      </p>
+    </div>
     <div className="card-actions justify-end">
-      <div className="badge badge-outline">Fashion</div> 
-      <div className="badge badge-outline">Products</div>
+      <div>
+        <button onClick={secondaryActionMethod} className="btn btn-outline">
+        {secondaryAction}  
+        </button>  
+      </div> 
+      <div>
+      <button onClick={primaryActionMethod} className="btn btn-outline border-2 border-blue-600 text-blue-600">{primaryAction}</button>  
+      </div>
     </div>
   </div>
 </div>
