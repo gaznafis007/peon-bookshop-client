@@ -39,13 +39,17 @@ const Books = () => {
     return (
         <section className="my-4">
             <SectionHeader title={"Our Books"} subtitle={"You can find what satisfy your desire of reading and learning"}></SectionHeader>
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-6">
+            {
+                data.message ? <h2 className="text-4xl text-center">{data?.message}</h2>:(
+                    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-6">
                     {
                         data?.books.map((book) => (
                             <Card key={book?._id} title={book?.book_title} image_url={book?.book_image_url} description={book?.book_description} subtitle={book?.book_genre} primaryAction={"Buy now"} secondaryAction={"Add to cart"} extras={book?.book_author}></Card>
                         ))
                     }
             </div>
+                )
+            }
             <div className="my-4 flex flex-row justify-between">
                     <div>
                         <button onClick={previousAction} className="btn">Prev</button>
