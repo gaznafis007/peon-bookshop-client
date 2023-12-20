@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import signInAnimation from "../../assets/login.json"
 import Lottie from "lottie-react";
 import { useForm } from "react-hook-form";
@@ -9,13 +9,15 @@ import { AuthContext } from "../../api/AuthProvider";
 const SignIn = () => {
   const {register, handleSubmit, formState:{errors}} = useForm()
   const {signIn} = useContext(AuthContext)
-  const navigate = useNavigate
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/"
   const handleSignIn = data =>{
     console.log(data)
     signIn(data.email,data.password)
     .then(res=>{
       console.log(res.user)
-      navigate("/")
+      navigate(from, {replace:true})
     })
     .catch(error=>{
       console.log(error)

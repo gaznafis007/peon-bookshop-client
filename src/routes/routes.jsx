@@ -6,6 +6,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import SignIn from "../Pages/SignIn/SignIn";
 import Blog from "../Pages/Blog/Blog/Blog";
 import BookReview from "../Pages/BookReveiew/BookReview/BookReview";
+import PrivateRoute from "../Private/PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/bookreview",
-                element: <BookReview/>
+                element: <PrivateRoute><BookReview/></PrivateRoute>
             },
             {
                 path: "/signup",
