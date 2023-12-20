@@ -8,7 +8,7 @@ import { AuthContext } from "../../api/AuthProvider";
 
 const SignIn = () => {
   const {register, handleSubmit, formState:{errors}} = useForm()
-  const {signIn} = useContext(AuthContext)
+  const {signIn,googleLogin,authError,setAuthError} = useContext(AuthContext)
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/"
@@ -18,6 +18,41 @@ const SignIn = () => {
     .then(res=>{
       console.log(res.user)
       navigate(from, {replace:true})
+    })
+    .catch(error=>{
+      console.log(error)
+      setAuthError(error.message)
+    })
+  }
+  const saveUser = (name,email) => {
+    const user ={
+      name,
+      email
+    }
+    fetch(`http://localhost:5000/users?email=${email}`,{
+      method: 'POST',
+      headers:{
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data)
+      if(data.acknowledged){
+        navigate("/")
+      }
+      else{
+        console.log(data)
+        setAuthError(data?.message)
+      }
+    })
+  }
+  const handleGoogleLogin = () =>{
+    googleLogin()
+    .then(res=>{
+      console.log(res.user)
+      saveUser(res.user?.displayName, res.user?.email)
     })
     .catch(error=>{
       console.log(error)
@@ -69,11 +104,12 @@ const SignIn = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
+                {authError ? <p className="text-error">{authError}</p>:""}
                 <button className="btn btn-primary">Login</button>
               </div>
-              <div className="divider">OR</div>
-            <button className="btn btn-outline">Sign in with google</button>
             </form>
+              <div className="divider">OR</div>
+            <button onClick={handleGoogleLogin} className="btn btn-outline">Sign in with google</button>
           </div>
         </div>
       </div>

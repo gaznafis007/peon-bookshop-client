@@ -2,34 +2,69 @@ import { Link, useNavigate } from "react-router-dom";
 import signUpAnimation from "../../assets/signup.json"
 import Lottie from "lottie-react";
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../api/AuthProvider";
 
 const SignUp = () => {
   const {register, handleSubmit, formState:{errors}}= useForm()
-  const {signUp, getProfile} = useContext(AuthContext)
+  const {signUp, getProfile, googleLogin,authError,setAuthError} = useContext(AuthContext)
+  
   const navigate = useNavigate()
   const handleSignUp = (data) =>{
     console.log(data)
     const name = data.name;
     const email = data.email;
     const password = data.password;
-    // const profile = {
-    //   name,
-    //   email,
-    //   password
-    // }
     signUp(email,password)
     .then(res=>{
       console.log(res.user)
       getProfile(name)
-      navigate("/")
       // .then(res=>{
-      //   console.log(res)
+      //     console.log(res.user)
       // })
+      saveUser(data?.name,data?.email)
+    })
+    .catch(error=>{
+      console.log(error.message)
+      setAuthError(error.message)
+    })
+  }
+  const saveUser = (name,email) => {
+    const user ={
+      name,
+      email
+    }
+    fetch(`http://localhost:5000/users?email=${email}`,{
+      method: 'POST',
+      headers:{
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data)
+      if(data.acknowledged){
+        setAuthError("")
+        navigate("/")
+      }
+      else{
+        console.log(data)
+        setAuthError(data?.message);
+        // console.log(authError)
+        
+      }
+    })
+  }
+  const handleGoogleLogin = () =>{
+    googleLogin()
+    .then(res=>{
+      console.log(res.user)
+      saveUser(res.user?.displayName, res.user?.email)
     })
     .catch(error=>{
       console.log(error)
+      // setAuthError(error)
     })
   }
     return (
@@ -102,12 +137,12 @@ const SignUp = () => {
           </label>
         </div>
         <div className="form-control mt-6">
+          {authError ? <p className="text-error">{authError}</p> : ""}
           <input type="submit" className="btn btn-primary"  value={"sign up"} />
         </div>
-        <div className="divider">OR</div>
-      <button className="btn btn-outline">Sign in with google</button>
       </form>
-      
+        <div className="divider">OR</div>
+      <button onClick={handleGoogleLogin} className="btn btn-outline">Sign in with google</button>
     </div>
   </div>
 </div>
