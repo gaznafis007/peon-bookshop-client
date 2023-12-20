@@ -1,12 +1,36 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signUpAnimation from "../../assets/signup.json"
 import Lottie from "lottie-react";
 import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "../../api/AuthProvider";
 
 const SignUp = () => {
   const {register, handleSubmit, formState:{errors}}= useForm()
+  const {signUp, getProfile} = useContext(AuthContext)
+  const navigate = useNavigate()
   const handleSignUp = (data) =>{
     console.log(data)
+    const name = data.name;
+    const email = data.email;
+    const password = data.password;
+    // const profile = {
+    //   name,
+    //   email,
+    //   password
+    // }
+    signUp(email,password)
+    .then(res=>{
+      console.log(res.user)
+      getProfile(name)
+      navigate("/")
+      // .then(res=>{
+      //   console.log(res)
+      // })
+    })
+    .catch(error=>{
+      console.log(error)
+    })
   }
     return (
         <div className="hero min-h-screen bg-base-200">
