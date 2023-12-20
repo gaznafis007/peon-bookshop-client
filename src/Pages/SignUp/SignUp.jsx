@@ -2,12 +2,15 @@ import { Link, useNavigate } from "react-router-dom";
 import signUpAnimation from "../../assets/signup.json"
 import Lottie from "lottie-react";
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useContext, useState} from "react";
 import { AuthContext } from "../../api/AuthProvider";
+import useJWT from "../../Hooks/useJWT/useJWT";
 
 const SignUp = () => {
   const {register, handleSubmit, formState:{errors}}= useForm()
-  const {signUp, getProfile, googleLogin,authError,setAuthError} = useContext(AuthContext)
+  const {signUp, getProfile, googleLogin,authError,setAuthError} = useContext(AuthContext);
+  const [signedUpEmail,setSignedUpEmail] = useState("");
+  const [token] = useJWT(signedUpEmail)
   
   const navigate = useNavigate()
   const handleSignUp = (data) =>{
@@ -19,10 +22,7 @@ const SignUp = () => {
     .then(res=>{
       console.log(res.user)
       getProfile(name)
-      // .then(res=>{
-      //     console.log(res.user)
-      // })
-      saveUser(data?.name,data?.email)
+      saveUser(name,email)
     })
     .catch(error=>{
       console.log(error.message)
@@ -45,8 +45,9 @@ const SignUp = () => {
     .then(data=>{
       console.log(data)
       if(data.acknowledged){
+        console.log("data acknowledged")
+        setSignedUpEmail(email)
         setAuthError("")
-        navigate("/")
       }
       else{
         console.log(data)
@@ -56,6 +57,17 @@ const SignUp = () => {
       }
     })
   }
+  // const getJWT = (email) => {
+  //   fetch(`http://localhost:5000/jwt?email=${email}`)
+  //   .then(res=>res.json())
+  //   .then(data=>{
+  //     console.log(data);
+  //     if(data.token){
+  //       localStorage.setItem("peonKey", data?.token)
+  //       navigate("/")
+  //     }
+  //   })
+  // }
   const handleGoogleLogin = () =>{
     googleLogin()
     .then(res=>{
@@ -66,6 +78,10 @@ const SignUp = () => {
       console.log(error)
       // setAuthError(error)
     })
+  }
+  if(token){
+    localStorage.setItem("peonKey", token)
+      navigate("/")
   }
     return (
         <div className="hero min-h-screen bg-base-200">

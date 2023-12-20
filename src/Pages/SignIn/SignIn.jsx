@@ -2,13 +2,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import signInAnimation from "../../assets/login.json"
 import Lottie from "lottie-react";
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../api/AuthProvider";
+import useJWT from "../../Hooks/useJWT/useJWT";
 
 
 const SignIn = () => {
   const {register, handleSubmit, formState:{errors}} = useForm()
   const {signIn,googleLogin,authError,setAuthError} = useContext(AuthContext)
+  const [signedInEmail,setSignedInEmail] = useState("")
+  const [token] = useJWT(signedInEmail)
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/"
@@ -17,7 +20,7 @@ const SignIn = () => {
     signIn(data.email,data.password)
     .then(res=>{
       console.log(res.user)
-      navigate(from, {replace:true})
+      setSignedInEmail(data.email)
     })
     .catch(error=>{
       console.log(error)
@@ -40,7 +43,7 @@ const SignIn = () => {
     .then(data=>{
       console.log(data)
       if(data.acknowledged){
-        navigate("/")
+        setSignedInEmail(email)
       }
       else{
         console.log(data)
@@ -57,6 +60,10 @@ const SignIn = () => {
     .catch(error=>{
       console.log(error)
     })
+  }
+  if(token){
+    localStorage.setItem("peonKey", token)
+      navigate(from, {replace:true})
   }
     return (
         <div className="hero min-h-screen bg-base-200">

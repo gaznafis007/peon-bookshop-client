@@ -21,6 +21,7 @@ const AuthProvider = ({children}) => {
         return updateProfile(auth.currentUser, {displayName})
     }
     const logOut = () => {
+        localStorage.removeItem("peonKey")
         return signOut(auth)
     }
     const googleLogin = () => {
