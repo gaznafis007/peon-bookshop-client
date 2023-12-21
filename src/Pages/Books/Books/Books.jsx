@@ -42,6 +42,9 @@ const Books = () => {
         else{
             fetch(`http://localhost:5000/wishlist?id=${id}&email=${user?.email}`,{
             method: 'POST',
+            headers:{
+                authorization: `bearer ${localStorage.getItem("peonKey")}`
+            }
         })
         .then(res=>res.json())
         .then(data=>{
@@ -68,13 +71,13 @@ const Books = () => {
             {
                 data.message ? <h2 className="text-4xl text-center">{data?.message}</h2>:(
                     <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-6">
-                    {
-                        data?.books.map((book) => (
-                            <Card key={book?._id} object={book} title={book?.book_title} image_url={book?.book_image_url} description={book?.book_description} subtitle={book?.book_genre} primaryAction={"Buy now"} secondaryAction={"Add to Cart"} extras={book?.book_author} secondaryActionMethod={addToCart}
-                            link={`/books/${book._id}`}></Card>
-                        ))
-                    }
-            </div>
+                        {
+                            data?.books.map((book) => (
+                                <Card key={book?._id} object={book} title={book?.book_title} image_url={book?.book_image_url} description={book?.book_description} subtitle={book?.book_genre} primaryAction={"Buy now"} secondaryAction={"Add to Cart"} extras={book?.book_author} secondaryActionMethod={addToCart}
+                                link={`/books/${book._id}`}></Card>
+                            ))
+                        }
+                    </div>
                 )
             }
             <div className="my-4 flex flex-row justify-between">
