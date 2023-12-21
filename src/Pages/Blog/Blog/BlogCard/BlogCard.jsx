@@ -4,7 +4,8 @@ const BlogCard = ({blogItem}) => {
     return (
         <div className="card bg-base-100 shadow-xl my-4">
             <div className="card-body">
-                <h2 className="card-title">{blogItem?.name}</h2>
+                <h2 className="card-title text-blue-600">{blogItem?.title}</h2>
+                <p className="text-lg text-gray-400 text-start">{blogItem?.name}</p>
                 <span className="text-gray-400 text-sm text-start">{blogItem?.email}</span>
                 <p className="text-start">
                     {

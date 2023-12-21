@@ -8,6 +8,9 @@ import Blog from "../Pages/Blog/Blog/Blog";
 import BookReview from "../Pages/BookReveiew/BookReview/BookReview";
 import PrivateRoute from "../Private/PrivateRoute/PrivateRoute";
 import BlogItem from "../Pages/Blog/BlogItem/BlogItem";
+import BookReviewItem from "../Pages/BookReveiew/BookReviewItem/BookReviewItem";
+
+
 
 const router = createBrowserRouter([
     {
@@ -34,6 +37,11 @@ const router = createBrowserRouter([
             {
                 path: "/bookreview",
                 element: <PrivateRoute><BookReview/></PrivateRoute>
+            },
+            {
+                path: "/bookreview/:id",
+                loader: ({params})=> fetch(`http://localhost:5000/bookReview/${params.id}`),
+                element: <BookReviewItem></BookReviewItem>
             },
             {
                 path: "/signup",
