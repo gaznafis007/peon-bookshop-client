@@ -1,13 +1,14 @@
+import { Link } from "react-router-dom";
 
 
-const Card = ({title, image_url, description, subtitle, extras, secondaryAction, primaryAction, primaryActionMethod, secondaryActionMethod}) => {
+const Card = ({title, object, image_url, description, subtitle, extras, secondaryAction, primaryAction, primaryActionMethod, secondaryActionMethod, link}) => {
     return (
         <>
             <div className="card w-96 bg-base-100 shadow-xl">
   <figure><img src={image_url} alt="Shoes" /></figure>
   <div className="card-body">
     <h2 className="card-title">
-      {title}
+      <Link to={link}>{title}</Link>
       <br />
       
     </h2>
@@ -20,7 +21,7 @@ const Card = ({title, image_url, description, subtitle, extras, secondaryAction,
     </div>
     <div className="card-actions justify-end">
       <div>
-        <button onClick={secondaryActionMethod} className="btn btn-outline">
+        <button onClick={()=>secondaryActionMethod(object._id)} className="btn btn-outline">
         {secondaryAction}  
         </button>  
       </div> 

@@ -1,10 +1,12 @@
 import SectionHeader from "../../../Components/SectionHeader";
-import useData from "../../../Hooks/useData/useData";
 import Card from "../../../Components/Card"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../api/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const Books = () => {
+    const {user} = useContext(AuthContext)
     const [data, setData] = useState({});
     const [isLoading,setIsLoading] = useState(true);
     const [page, setPage] = useState(0);
@@ -16,7 +18,6 @@ const Books = () => {
             setIsLoading(false)
         })
     },[page])
-    console.log(page)
     const previousAction = ()=>{
         if(page>0){
             let currentPage = page - 1;
@@ -28,6 +29,31 @@ const Books = () => {
         let currentPage = page + 1;
         setPage(currentPage)
         console.log(page)
+    }
+    const addToCart = id =>{
+        if(!user){
+            return Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You need to login, first",
+                footer: `<a href="/signin"> Please sign in to add this book to cart</a>`
+              });
+        }
+        else{
+            fetch(`http://localhost:5000/wishlist?id=${id}&email=${user?.email}`,{
+            method: 'POST',
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if(data.acknowledged){
+                Swal.fire({
+                    icon: "success",
+                    title: "Congrats",
+                    text: "Book added to the cart",
+                  });
+            }
+        })
+        }
     }
     if(isLoading){
         return(
@@ -44,7 +70,8 @@ const Books = () => {
                     <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-6">
                     {
                         data?.books.map((book) => (
-                            <Card key={book?._id} title={book?.book_title} image_url={book?.book_image_url} description={book?.book_description} subtitle={book?.book_genre} primaryAction={"Buy now"} secondaryAction={"Add to cart"} extras={book?.book_author}></Card>
+                            <Card key={book?._id} object={book} title={book?.book_title} image_url={book?.book_image_url} description={book?.book_description} subtitle={book?.book_genre} primaryAction={"Buy now"} secondaryAction={"Add to Cart"} extras={book?.book_author} secondaryActionMethod={addToCart}
+                            link={`/books/${book._id}`}></Card>
                         ))
                     }
             </div>

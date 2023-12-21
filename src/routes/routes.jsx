@@ -9,6 +9,8 @@ import BookReview from "../Pages/BookReveiew/BookReview/BookReview";
 import PrivateRoute from "../Private/PrivateRoute/PrivateRoute";
 import BlogItem from "../Pages/Blog/BlogItem/BlogItem";
 import BookReviewItem from "../Pages/BookReveiew/BookReviewItem/BookReviewItem";
+import ViewCart from "../Pages/ViewCart/ViewCart";
+import BookDetails from "../Pages/Books/BookDetails/BookDetails";
 
 
 
@@ -24,6 +26,11 @@ const router = createBrowserRouter([
             {
                 path: "/books",
                 element: <Books/>
+            },
+            {
+                path: "/books/:id",
+                loader: ({params})=> fetch(`http://localhost:5000/books/${params.id}`),
+                element: <BookDetails></BookDetails>
             },
             {
                 path: "/blog",
@@ -42,6 +49,10 @@ const router = createBrowserRouter([
                 path: "/bookreview/:id",
                 loader: ({params})=> fetch(`http://localhost:5000/bookReview/${params.id}`),
                 element: <PrivateRoute><BookReviewItem></BookReviewItem></PrivateRoute>
+            },
+            {
+                path:"/wishlist",
+                element:<PrivateRoute><ViewCart/></PrivateRoute>
             },
             {
                 path: "/signup",

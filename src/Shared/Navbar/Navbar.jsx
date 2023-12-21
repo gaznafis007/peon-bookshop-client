@@ -61,8 +61,11 @@ const Navbar = () => {
                   {
                   user?.uid ?
                   <>
-                    <span className="text-blue-600">{user?.displayName}</span>
-                  <button onClick={logOut} className="btn btn-sm btn-outline ml-2">Sign out</button>
+                  <NavLink to="/wishlist" className={({isActive})=>
+            isActive ? "border-b-2 border-blue-500 text-blue-800 p-2 capitalize text-xl inline-block rounded-none": "text-blue-600 capitalize"
+    }>view cart</NavLink>
+                    <span className="text-blue-600 mx-3">{user?.displayName}</span>
+                  <button onClick={logOut} className="btn btn-sm btn-outline">Sign out</button>
                   </>
                   :
                   <Link to="/signin" className="text-blue-600 capitalize">Sing in</Link>
