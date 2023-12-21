@@ -7,6 +7,7 @@ import SignIn from "../Pages/SignIn/SignIn";
 import Blog from "../Pages/Blog/Blog/Blog";
 import BookReview from "../Pages/BookReveiew/BookReview/BookReview";
 import PrivateRoute from "../Private/PrivateRoute/PrivateRoute";
+import BlogItem from "../Pages/Blog/BlogItem/BlogItem";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,11 @@ const router = createBrowserRouter([
             {
                 path: "/blog",
                 element: <Blog/>
+            },
+            {
+                path: "/blog/:id",
+                loader: ({params})=> fetch(`http://localhost:5000/blog/${params.id}`),
+                element: <BlogItem></BlogItem>
             },
             {
                 path: "/bookreview",
