@@ -26,7 +26,7 @@ const Card = ({title, object, image_url, description, subtitle, extras, secondar
         </button>  
       </div> 
       <div>
-      <button onClick={primaryActionMethod} className="btn btn-outline border-2 border-blue-600 text-blue-600">{primaryAction}</button>  
+      {primaryAction && <button onClick={primaryActionMethod} className="btn btn-outline border-2 border-blue-600 text-blue-600">{primaryAction}</button>}  
       </div>
     </div>
   </div>

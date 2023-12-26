@@ -15,6 +15,7 @@ import Dashboard from "../Pages/Dasboard/Dashboard/Dashboard";
 import MyOrders from "../Pages/Dasboard/MyOrders/MyOrders";
 import AllUsers from "../Pages/Dasboard/AllUsers/AllUsers";
 import AdminRoute from "../Private/AdminRoute/AdminRoute";
+import Profile from "../Pages/Dasboard/Profile/Profile";
 
 
 
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
             path: "/dashboard",
             element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
             children:[
+                {
+                    path:"/dashboard",
+                    element:<Profile></Profile>
+                },
                 {
                     path:"/dashboard/myOrders",
                     element:<MyOrders/>
