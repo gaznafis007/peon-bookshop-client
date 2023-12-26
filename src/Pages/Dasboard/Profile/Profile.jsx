@@ -84,6 +84,7 @@ const Profile = () => {
             </div>
             <div className="mt-8">
                 <h2 className="text-2xl text-blue-600 text-left font-semibold">Your Blogs</h2>
+                {blogItems.length === 0 && <h2 className="text-3xl text-blue-400 font-semibold mt-4 capitalize">no blog yet</h2>}
                 <div className="grid grid-cols-1 md:grid-cols-2 mt-4 gap-4 mx-4">
                     {
                         blogItems.map((blogItem) => (
@@ -94,6 +95,7 @@ const Profile = () => {
             </div>
             <div className="mt-8">
                 <h2 className="text-2xl text-blue-600 text-left font-semibold">Your Book Reviews</h2>
+                {bookReviews.length === 0 && <h2 className="text-3xl text-blue-400 font-semibold mt-4 capitalize">no book review yet</h2>}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 mx-4">
                 {
                     bookReviews.map((bookReview) => (

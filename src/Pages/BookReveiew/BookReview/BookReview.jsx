@@ -5,7 +5,7 @@ import Reviews from "../Reviews/Reviews";
 
 const BookReview = () => {
     const {data:bookReviews=[], isLoading,refetch} = useQuery({
-        queryKey:["bookReveiws"],
+        queryKey:["bookReview"],
         queryFn: async()=>{
             const res = await fetch("http://localhost:5000/bookReview",{
                 headers:{

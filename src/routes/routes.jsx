@@ -16,6 +16,7 @@ import MyOrders from "../Pages/Dasboard/MyOrders/MyOrders";
 import AllUsers from "../Pages/Dasboard/AllUsers/AllUsers";
 import AdminRoute from "../Private/AdminRoute/AdminRoute";
 import Profile from "../Pages/Dasboard/Profile/Profile";
+import ManageBooks from "../Pages/Admin/ManageBooks/ManageBooks";
 
 
 
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
                 {
                     path:"/dashboard/allUsers",
                     element:<AdminRoute><AllUsers/></AdminRoute>
+                },
+                {
+                    path:"/dashboard/manageBooks",
+                    element:<ManageBooks/>
                 }
             ]
         

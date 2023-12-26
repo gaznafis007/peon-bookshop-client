@@ -29,7 +29,12 @@ const DashboardDrawer = () => {
       <li><Link to="/dashboard">profile</Link></li>
       <li><Link to="/dashboard/myOrders">my orders</Link></li>
       {
-        isAdmin && <li><Link to="/dashboard/allUsers">All users</Link></li>
+        isAdmin && (
+          <>
+            <li><Link to="/dashboard/allUsers">All users</Link></li>
+            <li><Link to="/dashboard/manageBooks">Manage Books</Link></li>
+          </>
+        )
       }
     </ul>
   

@@ -21,7 +21,7 @@ const Books = () => {
         }
     })
     useEffect(()=>{
-        fetch(`http://localhost:5000/books?page=${page}`)
+        fetch(`http://localhost:5000/allBooks?page=${page}`)
         .then(res=>res.json())
         .then(result=>{
             setData(result);
@@ -42,7 +42,7 @@ const Books = () => {
     }
     const searchByQueryOrValue = async (query,value) =>{
         // console.log(query,value)
-        const res = await fetch(`http://localhost:5000/books/?${query}=${value}`);
+        const res = await fetch(`http://localhost:5000/allBooks/?${query}=${value}`);
         const result = await res.json();
         setData(result)
     }
