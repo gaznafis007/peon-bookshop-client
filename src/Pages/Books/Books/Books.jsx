@@ -41,8 +41,8 @@ const Books = () => {
         console.log(page)
     }
     const searchByQueryOrValue = async (query,value) =>{
-        // console.log(query,value)
-        const res = await fetch(`http://localhost:5000/allBooks/?${query}=${value}`);
+        console.log(query,value)
+        const res = await fetch(`http://localhost:5000/allBooks?${query}=${value}`);
         const result = await res.json();
         setData(result)
     }

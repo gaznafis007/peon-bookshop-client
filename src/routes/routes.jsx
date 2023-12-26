@@ -17,6 +17,7 @@ import AllUsers from "../Pages/Dasboard/AllUsers/AllUsers";
 import AdminRoute from "../Private/AdminRoute/AdminRoute";
 import Profile from "../Pages/Dasboard/Profile/Profile";
 import ManageBooks from "../Pages/Admin/ManageBooks/ManageBooks";
+import AddNewBooks from "../Pages/Admin/AddNewBooks/AddNewBooks";
 
 
 
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
                 {
                     path:"/dashboard/manageBooks",
                     element:<ManageBooks/>
+                },
+                {
+                    path:"/dashboard/addNewBook",
+                    element:<AddNewBooks></AddNewBooks>
                 }
             ]
         

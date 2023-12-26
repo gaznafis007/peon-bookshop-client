@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 const ManageBooks = () => {
@@ -41,7 +42,7 @@ const ManageBooks = () => {
                     <th></th>
                     <th>Book Title</th>
                     <th>Author</th>
-                    <th>Price</th>
+                    <th>Price (USD)</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -55,7 +56,7 @@ const ManageBooks = () => {
                             <td>{book?.book_author}</td>
                             <td>{book?.book_price}</td>
                             <td>
-                            <button className="btn btn-sm btn-outline btn-primary border-blue-600">Edit</button>
+                            <Link to={`/books/${book?._id}`} className="btn btn-sm btn-outline btn-primary border-blue-600">Edit</Link>
                             </td>
                             <td>
                             <button className="btn btn-sm btn-error">Delete</button>
@@ -70,6 +71,9 @@ const ManageBooks = () => {
         <div className="flex flex-row justify-between lg:w-2/3 mx-auto mt-4">
             <button onClick={handlePrev} className="btn">prev</button>
             <button onClick={handleNext} className="btn">next</button>
+        </div>
+        <div className="mt-6">
+            <Link to="/dashboard/addNewBook" className="btn bg-blue-600 hover:bg-blue-900 text-white md:w-1/3 capitalize"> add new book</Link>
         </div>
         </div>
     );
