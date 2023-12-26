@@ -12,6 +12,9 @@ import BookReviewItem from "../Pages/BookReveiew/BookReviewItem/BookReviewItem";
 import ViewCart from "../Pages/ViewCart/ViewCart";
 import BookDetails from "../Pages/Books/BookDetails/BookDetails";
 import Dashboard from "../Pages/Dasboard/Dashboard/Dashboard";
+import MyOrders from "../Pages/Dasboard/MyOrders/MyOrders";
+import AllUsers from "../Pages/Dasboard/AllUsers/AllUsers";
+import AdminRoute from "../Private/AdminRoute/AdminRoute";
 
 
 
@@ -56,10 +59,6 @@ const router = createBrowserRouter([
                 element:<PrivateRoute><ViewCart/></PrivateRoute>
             },
             {
-                path: "/dashboard",
-                element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>
-            },
-            {
                 path: "/signup",
                 element: <SignUp/>
             },
@@ -68,6 +67,21 @@ const router = createBrowserRouter([
                 element: <SignIn/>
             }
         ]
+    },
+    {
+            path: "/dashboard",
+            element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+            children:[
+                {
+                    path:"/dashboard/myOrders",
+                    element:<MyOrders/>
+                },
+                {
+                    path:"/dashboard/allUsers",
+                    element:<AdminRoute><AllUsers/></AdminRoute>
+                }
+            ]
+        
     }
 ])
 export default router
