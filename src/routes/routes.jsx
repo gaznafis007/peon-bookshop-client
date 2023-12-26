@@ -11,6 +11,7 @@ import BlogItem from "../Pages/Blog/BlogItem/BlogItem";
 import BookReviewItem from "../Pages/BookReveiew/BookReviewItem/BookReviewItem";
 import ViewCart from "../Pages/ViewCart/ViewCart";
 import BookDetails from "../Pages/Books/BookDetails/BookDetails";
+import Dashboard from "../Pages/Dasboard/Dashboard/Dashboard";
 
 
 
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
             {
                 path:"/wishlist",
                 element:<PrivateRoute><ViewCart/></PrivateRoute>
+            },
+            {
+                path: "/dashboard",
+                element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>
             },
             {
                 path: "/signup",

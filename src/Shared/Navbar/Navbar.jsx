@@ -36,6 +36,15 @@ const Navbar = () => {
         
         }>blog</NavLink>
     </li>
+    {
+      user?.uid && <li>
+      <NavLink to="/dashboard" className={
+          ({isActive})=>
+          isActive ? "border-b-2 border-blue-500 text-blue-800 p-2 capitalize text-xl inline-block rounded-none": "text-blue-600 capitalize"
+      
+      }>Dashboard</NavLink>
+  </li>
+    }
     </>
 
     return (
