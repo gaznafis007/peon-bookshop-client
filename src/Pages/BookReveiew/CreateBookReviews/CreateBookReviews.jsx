@@ -14,7 +14,7 @@ const CreateBookReviews = ({refetch}) => {
         const reviewText = data.reviewText;
         const formData = new FormData()
         formData.append('image', data.image[0]);
-        fetch(`https://api.imgbb.com/1/upload?key=6338762648ac3cf805dfdb2b58a9667d`,{
+        fetch(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_BB_KEY}`,{
             method: 'POST',
             body: formData
         })

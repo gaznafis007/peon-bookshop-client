@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCSDQuzmljKVfj9QnN_k9xSi-IhxEdcy-o",
-  authDomain: "peon-bookshop-client.firebaseapp.com",
-  projectId: "peon-bookshop-client",
-  storageBucket: "peon-bookshop-client.appspot.com",
-  messagingSenderId: "645764309797",
-  appId: "1:645764309797:web:b48e96345b47e96e05f0cc",
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 
 // Initialize Firebase
