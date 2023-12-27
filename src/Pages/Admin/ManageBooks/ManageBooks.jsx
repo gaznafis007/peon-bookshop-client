@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const ManageBooks = () => {
     const [page,setPage] = useState(0);
-    const {data,isLoading} = useQuery({
+    const {data,isLoading,refetch} = useQuery({
         queryKey:['allBooks', page],
         queryFn: async() =>{
             const res= await fetch(`http://localhost:5000/allBooks?page=${page}`);
@@ -13,6 +14,25 @@ const ManageBooks = () => {
             return data
         }
     })
+    const handleDeleteBook = book =>{
+        fetch(`http://localhost:5000/books/${book._id}`,{
+            method:'DELETE',
+            headers:{
+                authorization: `bearer ${localStorage.getItem("peonKey")}`
+            }
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+            if(data.deletedCount > 0){
+                Swal.fire({
+                    icon:"success",
+                    title:`Deleted Successfully`
+                })
+                refetch()
+            }
+        })
+    }
     const handlePrev = () =>{
         if(page>0){
             let currentPrevPage = page - 1;
@@ -35,7 +55,7 @@ const ManageBooks = () => {
                 data.message ? <h2 className="text-2xl text-error">{data.message}</h2>
                 :
                 (
-                <table className="table">
+                <table className="table mt-4">
                 {/* head */}
                 <thead>
                 <tr>
@@ -59,7 +79,7 @@ const ManageBooks = () => {
                             <Link to={`/books/${book?._id}`} className="btn btn-sm btn-outline btn-primary border-blue-600">Edit</Link>
                             </td>
                             <td>
-                            <button className="btn btn-sm btn-error">Delete</button>
+                            <button onClick={()=>handleDeleteBook(book)} className="btn btn-sm btn-error">Delete</button>
                             </td>
                         </tr>
                     ))
