@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 const BookModal = ({setIsModalOpen,isModalOpen,user, book}) => {
     const {register,handleSubmit, reset, formState:{errors}} = useForm()
     const handleOrder = data =>{
+        console.log(data)
         const orderDetail = {
             userName: data.userName,
             phoneNumber: data.phoneNumber,
@@ -17,10 +18,10 @@ const BookModal = ({setIsModalOpen,isModalOpen,user, book}) => {
             bookImage: book.book_image_url,
             bookPrice: book.book_price,
             userEmail: user.email,
-            OrderQty: data.qty
+            orderQty: data.qty
         }
         fetch(`http://localhost:5000/orders`, {
-            method: 'POST',
+            method: 'PUT',
             headers:{
                 'content-type': 'application/json',
                 authorization: `bearer ${localStorage.getItem("peonKey")}`
@@ -29,7 +30,8 @@ const BookModal = ({setIsModalOpen,isModalOpen,user, book}) => {
         })
         .then(res=>res.json())
         .then(data=>{
-            if(data.acknowledged){
+            console.log(data)
+            if(data.result.acknowledged){
                 reset()
                 Swal.fire({
                     icon: "success",
