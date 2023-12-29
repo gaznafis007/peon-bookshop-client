@@ -16,7 +16,7 @@ const BookModal = ({setIsModalOpen,isModalOpen,user, book}) => {
             bookGenre: book.book_genre,
             bookId: book._id,
             bookImage: book.book_image_url,
-            bookPrice: book.book_price,
+            bookPrice: book.book_price * data.qty,
             userEmail: user.email,
             orderQty: data.qty
         }
