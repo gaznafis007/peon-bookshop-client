@@ -18,6 +18,7 @@ import AdminRoute from "../Private/AdminRoute/AdminRoute";
 import Profile from "../Pages/Dasboard/Profile/Profile";
 import ManageBooks from "../Pages/Admin/ManageBooks/ManageBooks";
 import AddNewBooks from "../Pages/Admin/AddNewBooks/AddNewBooks";
+import AllOrders from "../Pages/Admin/AllOrders/AllOrders";
 
 
 
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/books/:id",
-                loader: ({params})=> fetch(`http://localhost:5000/books/${params.id}`),
+                loader: ({params})=> fetch(`https://peon-bookshop-server.vercel.app/books/${params.id}`),
                 element: <BookDetails></BookDetails>
             },
             {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/blog/:id",
-                loader: ({params})=> fetch(`http://localhost:5000/blog/${params.id}`),
+                loader: ({params})=> fetch(`https://peon-bookshop-server.vercel.app/blog/${params.id}`),
                 element: <BlogItem></BlogItem>
             },
             {
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/bookreview/:id",
-                loader: ({params})=> fetch(`http://localhost:5000/bookReview/${params.id}`),
+                loader: ({params})=> fetch(`https://peon-bookshop-server.vercel.app/bookReview/${params.id}`),
                 element: <PrivateRoute><BookReviewItem></BookReviewItem></PrivateRoute>
             },
             {
@@ -93,7 +94,11 @@ const router = createBrowserRouter([
                 },
                 {
                     path:"/dashboard/addNewBook",
-                    element:<AddNewBooks></AddNewBooks>
+                    element:<AdminRoute><AddNewBooks></AddNewBooks></AdminRoute>
+                },
+                {
+                    path:"/dashboard/allOrders",
+                    element:<AdminRoute><AllOrders></AllOrders></AdminRoute>
                 }
             ]
         

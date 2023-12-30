@@ -5,6 +5,7 @@ import { AuthContext } from '../../../api/AuthProvider';
 import Swal from 'sweetalert2';
 import useAdmin from '../../../Hooks/useAdmin/useAdmin';
 import BookModal from '../BookModal/BookModal';
+import SingleLoading from "../../../Components/SingleLoading"
 
 const BookDetails = () => {
     const book = useLoaderData()
@@ -26,7 +27,7 @@ const BookDetails = () => {
               });
         }
         else{
-            fetch(`http://localhost:5000/wishlist?id=${id}&email=${user?.email}`,{
+            fetch(`https://peon-bookshop-server.vercel.app/wishlist?id=${id}&email=${user?.email}`,{
             method: 'POST',
             headers:{
                 authorization: `bearer ${localStorage.getItem("peonKey")}`
@@ -46,7 +47,7 @@ const BookDetails = () => {
     }
     if(isAdminLoading){
         return (
-            <h2 className="text-5xl text-green-600">Loading...</h2>
+            <SingleLoading/>
         )
     }
     return (
@@ -71,7 +72,7 @@ const BookDetails = () => {
             }
         </p>
         </div>
-        {isModalOpen && <BookModal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} user={user} book={book}></BookModal>}
+        {isModalOpen && <BookModal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} book={book}></BookModal>}
         </>
     );
 };

@@ -19,7 +19,7 @@ const CreateBlog = ({refetch}) => {
             blog
         }
         console.log(blogInfo)
-            fetch("http://localhost:5000/blog",{
+            fetch("https://peon-bookshop-server.vercel.app/blog",{
                 method:'POST',
                 headers:{
                     'content-type': 'application/json',

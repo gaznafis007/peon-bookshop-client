@@ -1,10 +1,11 @@
 import BlogCard from "../Blog/BlogCard/BlogCard";
+import SingleLoading from "../../../Components/SingleLoading"
 
 
 const ReadBlog = ({isLoading, blogs}) => {
     if(isLoading){
         return (
-            <h2 className="text-5xl text-green-600 text-center">Loading...</h2>
+            <SingleLoading/>
         )
     }
     return (

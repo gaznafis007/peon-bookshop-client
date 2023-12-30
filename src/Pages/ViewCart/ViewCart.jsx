@@ -4,13 +4,14 @@ import { AuthContext } from "../../api/AuthProvider";
 import Card from "../../Components/Card";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import CardLoading from "../../Components/CardLoading";
 
 const ViewCart = () => {
     const {user} = useContext(AuthContext)
     const {data:cartBooks, isLoading, refetch} = useQuery({
         queryKey:["wishlist", user.email],
         queryFn: async()=>{
-            const res = await fetch(`http://localhost:5000/wishlist?email=${user.email}`,{
+            const res = await fetch(`https://peon-bookshop-server.vercel.app/wishlist?email=${user.email}`,{
                 headers:{
                     authorization:`bearer ${localStorage.getItem("peonKey")}`
                 }
@@ -20,7 +21,7 @@ const ViewCart = () => {
         }
     })
     const deleteBookFromCart = id =>{
-        fetch(`http://localhost:5000/wishlist/${id}`,{
+        fetch(`https://peon-bookshop-server.vercel.app/wishlist/${id}`,{
             method: 'DELETE',
             headers:{
                 authorization: `Bearer ${localStorage.getItem("peonKey")}`
@@ -39,7 +40,7 @@ const ViewCart = () => {
     }
     if(isLoading){
         return (
-            <h2 className="text-green-600 text-5xl text-center">Loading...</h2>
+            <CardLoading/>
         )
     }
     return (

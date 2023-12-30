@@ -34,7 +34,7 @@ const SignUp = () => {
       name,
       email
     }
-    fetch(`http://localhost:5000/users?email=${email}`,{
+    fetch(`https://peon-bookshop-server.vercel.app/users?email=${email}`,{
       method: 'POST',
       headers:{
         'content-type': 'application/json'
@@ -58,7 +58,7 @@ const SignUp = () => {
     })
   }
   // const getJWT = (email) => {
-  //   fetch(`http://localhost:5000/jwt?email=${email}`)
+  //   fetch(`https://peon-bookshop-server.vercel.app/jwt?email=${email}`)
   //   .then(res=>res.json())
   //   .then(data=>{
   //     console.log(data);

@@ -32,7 +32,7 @@ const SignIn = () => {
       name,
       email
     }
-    fetch(`http://localhost:5000/users?email=${email}`,{
+    fetch(`https://peon-bookshop-server.vercel.app/users?email=${email}`,{
       method: 'POST',
       headers:{
         'content-type': 'application/json'

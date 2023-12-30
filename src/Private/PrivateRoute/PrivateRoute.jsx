@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../api/AuthProvider";
 import { Navigate, useLocation } from "react-router-dom";
+import Loading from "../../Components/Loading";
 
 
 const PrivateRoute = ({children}) => {
@@ -8,7 +9,7 @@ const PrivateRoute = ({children}) => {
     const location = useLocation()
     if(loading){
         return (
-            <h2 className="text-5xl text-green-600 text-center">Loading...</h2>
+            <Loading></Loading>
         )
     }
     if(user?.uid){

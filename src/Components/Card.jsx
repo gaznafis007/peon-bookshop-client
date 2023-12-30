@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 
-const Card = ({title, object, image_url, description, subtitle, extras, secondaryAction, primaryAction, primaryActionMethod, secondaryActionMethod, link}) => {
+const Card = ({title, object, image_url, description, subtitle, extras, secondaryAction, primaryAction, secondaryActionMethod, link}) => {
     return (
         <>
             <div className="card w-96 bg-base-100 shadow-xl">
@@ -26,7 +26,7 @@ const Card = ({title, object, image_url, description, subtitle, extras, secondar
         </button>  
       </div> 
       <div>
-      {primaryAction && <button onClick={primaryActionMethod} className="btn btn-outline border-2 border-blue-600 text-blue-600">{primaryAction}</button>}  
+      {primaryAction && <Link to={link} className="btn btn-outline border-2 border-blue-600 text-blue-600">{primaryAction}</Link>}
       </div>
     </div>
   </div>

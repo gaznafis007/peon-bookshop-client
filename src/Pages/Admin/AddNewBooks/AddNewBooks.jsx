@@ -24,7 +24,7 @@ const AddNewBooks = () => {
                     book_description:data.book_description,
                     qty:parseInt(data.qty)
                 }
-                fetch(`http://localhost:5000/books`,{
+                fetch(`https://peon-bookshop-server.vercel.app/books`,{
                     method:'POST',
                     headers:{
                         'content-type': 'application/json',

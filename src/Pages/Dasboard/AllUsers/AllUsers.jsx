@@ -8,7 +8,7 @@ const AllUsers = () => {
     const {data:users,isLoading, refetch} = useQuery({
         queryKey:["users"],
         queryFn: async()=>{
-            const res = await  fetch("http://localhost:5000/users",{
+            const res = await  fetch("https://peon-bookshop-server.vercel.app/users",{
                 headers:{
                     authorization: `bearer ${localStorage.getItem("peonKey")}`
                 }
@@ -18,7 +18,7 @@ const AllUsers = () => {
         }
     })
     const handleDelete = id =>{
-        fetch(`http://localhost:5000/users/${id}`,{
+        fetch(`https://peon-bookshop-server.vercel.app/users/${id}`,{
             method:'DELETE',
             headers:{
                 authorization:`bearer ${localStorage.getItem("peonKey")}`
@@ -37,7 +37,7 @@ const AllUsers = () => {
         })
     }
     const handleMakeAdmin = id =>{
-        fetch(`http://localhost:5000/users/${id}`,{
+        fetch(`https://peon-bookshop-server.vercel.app/users/${id}`,{
             method:'PUT',
             headers:{
                 authorization: `bearer ${localStorage.getItem("peonKey")}`

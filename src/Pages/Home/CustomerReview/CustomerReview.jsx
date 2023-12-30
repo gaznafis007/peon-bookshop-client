@@ -1,12 +1,13 @@
 
+import CardLoading from '../../../Components/CardLoading';
 import SectionHeader from '../../../Components/SectionHeader';
 import useData from '../../../Hooks/useData/useData';
 
 const Customerreview = () => {
-    const [reviews, isLoading] = useData('http://localhost:5000/customerReview')
+    const [reviews, isLoading] = useData('https://peon-bookshop-server.vercel.app/customerReview')
     if(isLoading){
         return (
-            <h2 className="text-5xl text-green-600 text-center">Loading</h2>
+            <CardLoading/>
         )
     }
     return (

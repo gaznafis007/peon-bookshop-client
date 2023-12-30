@@ -4,12 +4,13 @@ import useData from '../../../Hooks/useData/useData';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import Loading from "../../../Components/Loading"
 
 const OurTeam = () => {
-    const [teams, isLoading] = useData('http://localhost:5000/ourTeam')
+    const [teams, isLoading] = useData('https://peon-bookshop-server.vercel.app/ourTeam')
     if(isLoading){
         return (
-            <h2 className="text-5xl text-green-600 text-center">Loading...</h2>
+            <Loading/>
         )
     }
     return (

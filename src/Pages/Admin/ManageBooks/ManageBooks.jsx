@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import Loading from "../../../Components/Loading";
 
 
 const ManageBooks = () => {
@@ -9,13 +10,13 @@ const ManageBooks = () => {
     const {data,isLoading,refetch} = useQuery({
         queryKey:['allBooks', page],
         queryFn: async() =>{
-            const res= await fetch(`http://localhost:5000/allBooks?page=${page}`);
+            const res= await fetch(`https://peon-bookshop-server.vercel.app/allBooks?page=${page}`);
             const data = await res.json();
             return data
         }
     })
     const handleDeleteBook = book =>{
-        fetch(`http://localhost:5000/books/${book._id}`,{
+        fetch(`https://peon-bookshop-server.vercel.app/books/${book._id}`,{
             method:'DELETE',
             headers:{
                 authorization: `bearer ${localStorage.getItem("peonKey")}`
@@ -45,7 +46,7 @@ const ManageBooks = () => {
     }
     if(isLoading){
         return (
-            <h2 className="text-5xl text-green-600">Loading...</h2>
+            <Loading/>
         )
     }
     return (
@@ -63,6 +64,7 @@ const ManageBooks = () => {
                     <th>Book Title</th>
                     <th>Author</th>
                     <th>Price (USD)</th>
+                    <th>Quantity</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -75,6 +77,7 @@ const ManageBooks = () => {
                             <td>{book?.book_title}</td>
                             <td>{book?.book_author}</td>
                             <td>{book?.book_price}</td>
+                            <td>{book?.qty}</td>
                             <td>
                             <Link to={`/books/${book?._id}`} className="btn btn-sm btn-outline btn-primary border-blue-600">Edit</Link>
                             </td>

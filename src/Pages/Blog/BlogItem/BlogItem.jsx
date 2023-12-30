@@ -3,7 +3,6 @@ import { useLoaderData } from "react-router-dom";
 
 const BlogItem = () => {
     const blogItem = useLoaderData();
-    console.log(blogItem)
     return (
         <div className="bg-base=300 mt-4 p-4">
             <h2 className="text-4xl text-center text-blue-600">{blogItem?.title}</h2>

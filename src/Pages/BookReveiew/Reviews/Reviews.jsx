@@ -1,10 +1,11 @@
 import BookReviewCard from "../BookReviewCard/BookReviewCard";
+import SingleLoading from "../../../Components/SingleLoading"
 
 const Reviews = ({isLoading, bookReviews}) => {
 
     if(isLoading){
         return (
-            <h2 className="text-5xl text-center text-green-600">Loading...</h2>
+            <SingleLoading/>
         )
     }
     return (

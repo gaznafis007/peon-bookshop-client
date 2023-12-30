@@ -4,7 +4,7 @@ const useAdmin = (email) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminLoading, setIsAdminLoading] = useState(true);
   useEffect(() => {
-    fetch(`http://localhost:5000/admin?email=${email}`)
+    fetch(`https://peon-bookshop-server.vercel.app/admin?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

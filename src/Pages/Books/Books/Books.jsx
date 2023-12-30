@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../api/AuthProvider";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
+import CardLoading from "../../../Components/CardLoading";
 
 
 const Books = () => {
@@ -15,13 +16,13 @@ const Books = () => {
     const {data:authors=[]} = useQuery({
         queryKey:["authors"],
         queryFn: async()=>{
-            const res = await fetch("http://localhost:5000/authors");
+            const res = await fetch("https://peon-bookshop-server.vercel.app/authors");
             const data = res.json();
             return data
         }
     })
     useEffect(()=>{
-        fetch(`http://localhost:5000/allBooks?page=${page}`)
+        fetch(`https://peon-bookshop-server.vercel.app/allBooks?page=${page}`)
         .then(res=>res.json())
         .then(result=>{
             setData(result);
@@ -42,7 +43,7 @@ const Books = () => {
     }
     const searchByQueryOrValue = async (query,value) =>{
         console.log(query,value)
-        const res = await fetch(`http://localhost:5000/allBooks?${query}=${value}`);
+        const res = await fetch(`https://peon-bookshop-server.vercel.app/allBooks?${query}=${value}`);
         const result = await res.json();
         setData(result)
     }
@@ -70,7 +71,7 @@ const Books = () => {
               });
         }
         else{
-            fetch(`http://localhost:5000/wishlist?id=${id}&email=${user?.email}`,{
+            fetch(`https://peon-bookshop-server.vercel.app/wishlist?id=${id}&email=${user?.email}`,{
             method: 'POST',
             headers:{
                 authorization: `bearer ${localStorage.getItem("peonKey")}`
@@ -91,7 +92,7 @@ const Books = () => {
     if(isLoading){
         return(
             <>
-                <h2 className="text-green-600 text-center text-5xl">Loading...</h2>
+                <CardLoading/>
             </>
         )
     }
@@ -135,6 +136,7 @@ const Books = () => {
                         <button onClick={nextAction} className="btn">Next</button>
                     </div>
             </div>
+            
         </section>
     );
 };

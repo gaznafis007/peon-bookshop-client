@@ -7,7 +7,7 @@ const BookReview = () => {
     const {data:bookReviews=[], isLoading,refetch} = useQuery({
         queryKey:["bookReview"],
         queryFn: async()=>{
-            const res = await fetch("http://localhost:5000/bookReview",{
+            const res = await fetch("https://peon-bookshop-server.vercel.app/bookReview",{
                 headers:{
                     authorization:`bearer ${localStorage.getItem("peonKey")}`
                 }

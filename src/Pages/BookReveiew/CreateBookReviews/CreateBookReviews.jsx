@@ -31,7 +31,7 @@ const CreateBookReviews = ({refetch}) => {
                     reviewText,
                     image_url: data.data.image.url
                 }
-                fetch('http://localhost:5000/bookReview',{
+                fetch('https://peon-bookshop-server.vercel.app/bookReview',{
                     method: "POST",
                     headers:{
                         'content-type':'application/json',

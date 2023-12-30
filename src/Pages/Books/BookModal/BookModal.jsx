@@ -1,9 +1,12 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../../api/AuthProvider";
 
 
-const BookModal = ({setIsModalOpen,isModalOpen,user, book}) => {
+const BookModal = ({setIsModalOpen,isModalOpen, book}) => {
+    const {user} = useContext(AuthContext)
     const {register,handleSubmit, reset, formState:{errors}} = useForm()
     const handleOrder = data =>{
         console.log(data)
@@ -20,7 +23,7 @@ const BookModal = ({setIsModalOpen,isModalOpen,user, book}) => {
             userEmail: user.email,
             orderQty: data.qty
         }
-        fetch(`http://localhost:5000/orders`, {
+        fetch(`https://peon-bookshop-server.vercel.app/orders`, {
             method: 'PUT',
             headers:{
                 'content-type': 'application/json',
@@ -35,7 +38,7 @@ const BookModal = ({setIsModalOpen,isModalOpen,user, book}) => {
                 reset()
                 Swal.fire({
                     icon: "success",
-                    title: "Book is inserted to the database"
+                    title: "Order is placed"
                 })
                 
             }

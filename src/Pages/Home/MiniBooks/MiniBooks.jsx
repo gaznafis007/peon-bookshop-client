@@ -6,19 +6,52 @@ import 'swiper/css/pagination';
 import { Link } from 'react-router-dom';
 import SectionHeader from '../../../Components/SectionHeader';
 import useData from '../../../Hooks/useData/useData';
+import CardLoading from "../../../Components/CardLoading"
+import Swal from 'sweetalert2';
+import { useContext } from 'react';
+import { AuthContext } from '../../../api/AuthProvider';
 
 
 const MiniBooks = () => {
+  const {user} = useContext(AuthContext)
     // const [miniBooks, setMiniBooks] = useState([])
     // const [isLoading, setIsLoading] = useState(true)
-    const [miniBooks, isLoading] = useData("http://localhost:5000/miniBooks")
+    const [miniBooks, isLoading] = useData("https://peon-bookshop-server.vercel.app/miniBooks")
     if(isLoading){
         return(
             <>
-                <h2 className="text-5xl text-center text-green-600">Loading...</h2>
+                <CardLoading/>
             </>
         )
     }
+    const addToCart = id =>{
+      if(!user){
+          return Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "You need to login, first",
+              footer: `<a href="/signin"> Please sign in to add this book to cart</a>`
+            });
+      }
+      else{
+          fetch(`https://peon-bookshop-server.vercel.app/wishlist?id=${id}&email=${user?.email}`,{
+          method: 'POST',
+          headers:{
+              authorization: `bearer ${localStorage.getItem("peonKey")}`
+          }
+      })
+      .then(res=>res.json())
+      .then(data=>{
+          if(data.acknowledged){
+              Swal.fire({
+                  icon: "success",
+                  title: "Congrats",
+                  text: "Book added to the cart",
+                });
+          }
+      })
+      }
+  }
     return (
         <div className="my-4">
             
@@ -44,8 +77,8 @@ const MiniBooks = () => {
           <p className='text-start'>{miniBook.book_description}</p>
           <div className="card-actions justify-end mt-4">
             <div className="badge badge-outline">{miniBook.book_price} USD</div>
-            <div className="btn btn-sm btn-primary btn-outline">Buy now</div>
-            <div className="btn btn-sm btn-outline">Save to cart</div>
+            <Link to={`/books/${miniBook._id}`} className="btn btn-sm btn-primary btn-outline">Buy now</Link>
+            <div onClick={()=>addToCart(miniBook._id)} className="btn btn-sm btn-outline">Save to cart</div>
           </div>
         </div>
       </div>

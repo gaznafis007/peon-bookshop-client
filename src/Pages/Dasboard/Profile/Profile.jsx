@@ -4,13 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import Card from "../../../Components/Card"
 import BlogCard from "../../Blog/Blog/BlogCard/BlogCard";
 import Swal from "sweetalert2";
+import SingleLoading from "../../../Components/SingleLoading"
 
 const Profile = () => {
     const {user} = useContext(AuthContext)
     const {data:blogItems, isLoading:isBlogItemLoading, refetch:blogItemRefetch} = useQuery({
         queryKey: ["blog", user?.email],
         queryFn: async()=>{
-            const res = await fetch(`http://localhost:5000/v2/blog?email=${user?.email}`,{
+            const res = await fetch(`https://peon-bookshop-server.vercel.app/v2/blog?email=${user?.email}`,{
                 headers:{
                     authorization: `bearer ${localStorage.getItem("peonKey")}`
                 }
@@ -23,7 +24,7 @@ const Profile = () => {
     const {data:bookReviews, isLoading:isBookReviewLoading, refetch:bookReviewRefetch}= useQuery({
         queryKey:["bookReview", user?.email],
         queryFn: async()=>{
-            const res = await fetch(`http://localhost:5000/bookReview?email=${user?.email}`,{
+            const res = await fetch(`https://peon-bookshop-server.vercel.app/bookReview?email=${user?.email}`,{
                 headers:{
                     authorization: `bearer ${localStorage.getItem("peonKey")}`
                 }
@@ -33,7 +34,7 @@ const Profile = () => {
         }
     })
     const handleBlogItemDelete = id =>{
-        fetch(`http://localhost:5000/blog/${id}`,{
+        fetch(`https://peon-bookshop-server.vercel.app/blog/${id}`,{
             method: 'DELETE',
             headers:{
                 authorization: `bearer ${localStorage.getItem("peonKey")}`
@@ -51,7 +52,7 @@ const Profile = () => {
         })
     }
     const handleBookReviewDelete = id =>{
-        fetch(`http://localhost:5000/bookReview/${id}`,{
+        fetch(`https://peon-bookshop-server.vercel.app/bookReview/${id}`,{
             method:'DELETE',
             headers:{
                 authorization: `bearer ${localStorage.getItem("peonKey")}`
@@ -70,7 +71,7 @@ const Profile = () => {
     }
     if(isBlogItemLoading || isBookReviewLoading){
         return (
-            <h2 className="text-5xl text-green-600">Loading...</h2>
+            <SingleLoading/>
         )
     }
     return (

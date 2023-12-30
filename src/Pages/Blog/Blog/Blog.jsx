@@ -8,7 +8,7 @@ const Blog = () => {
     const {data:blogs=[], isLoading, refetch} = useQuery({
         queryKey:['blogs'],
         queryFn: async()=>{
-            const res = await fetch("http://localhost:5000/blog")
+            const res = await fetch("https://peon-bookshop-server.vercel.app/blog")
             const data = res.json();
             return data;
         }

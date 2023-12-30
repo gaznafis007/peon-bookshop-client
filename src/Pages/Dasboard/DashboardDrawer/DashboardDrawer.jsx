@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../../../api/AuthProvider";
 import useAdmin from "../../../Hooks/useAdmin/useAdmin";
+import Loading from "../../../Components/Loading";
 
 
 const DashboardDrawer = () => {
@@ -9,7 +10,7 @@ const DashboardDrawer = () => {
     const [isAdmin,isAdminLoading] = useAdmin(user?.email)
     if(loading || isAdminLoading){
         return (
-            <h2 className="text-4xl text-green-600">Loading...</h2>
+            <Loading/>
         )
     }
     return (
@@ -32,6 +33,7 @@ const DashboardDrawer = () => {
         isAdmin && (
           <>
             <li><Link to="/dashboard/allUsers">All users</Link></li>
+            <li><Link to="/dashboard/allOrders">All Orders</Link></li>
             <li><Link to="/dashboard/manageBooks">Manage Books</Link></li>
           </>
         )
